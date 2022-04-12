@@ -1,9 +1,10 @@
 import { Server } from './Server'
 
 class Launcher{
+
     //instance variables
-    name: string;
-    server: Server;
+    private name: string;
+    private server: Server;
 
     //constructor
     constructor(){
@@ -11,9 +12,9 @@ class Launcher{
     }
 
     //methods
-    launchApp(){
+    public launchApp(){
         console.log('started app');
-        this.server.createServer();
+        this.server.createServer(); 
     }
 }
 
