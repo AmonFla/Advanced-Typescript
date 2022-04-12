@@ -46,5 +46,3 @@ create the compiler options files tsconfig.json with  tsc --init  or manually
         "rootDir": "src"                /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     }
 }
-
-# Debug
