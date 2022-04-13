@@ -5,7 +5,7 @@ export class Server{
     public createServer(){
         createServer(
             (req: IncomingMessage, res: ServerResponse) => {
-                console.log('got request from: '+req.url)
+                console.log('got request from: ' + req.url);
                 res.end();
             }
          ).listen(8080)

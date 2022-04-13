@@ -42,6 +42,8 @@ create the compiler options files tsconfig.json with  tsc --init  or manually
             "DOM",              
             "ES2015"
         ],
+        "strictNullChecks": true,       /* Enable strict null checks. */
+        "strict": true,                 /* Enable all strict type-checking options. */
         "outDir": "dist",               /* Redirect output structure to the directory. */
         "rootDir": "src"                /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     }
