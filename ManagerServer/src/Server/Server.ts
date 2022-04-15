@@ -1,8 +1,10 @@
-    import { createServer, IncomingMessage, ServerResponse} from 'http';
+import { createServer, IncomingMessage, ServerResponse} from 'http';
+import { Authorizer } from '../Authorization/Authorizer';
 import { LoginHandler } from './LoginHandler';
 import { Utils } from './Utils';
 
 export class Server{
+    private authorizer : Authorizer = new Authorizer();
  
     public createServer(){
         createServer(
@@ -11,7 +13,7 @@ export class Server{
                 const basePath = Utils.getUrlBasePath(req.url)
                 switch(basePath){
                     case 'login':
-                        await new LoginHandler(req, res).handlerRequest()
+                        await new LoginHandler(req, res, this.authorizer).handlerRequest()
                         break;
                     default:
                         break

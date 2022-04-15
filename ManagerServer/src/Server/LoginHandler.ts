@@ -1,20 +1,28 @@
 import { on } from "events";
 import { IncomingMessage, ServerResponse } from "http";
-import { Account, Handler } from "./Model";
+import { Account, Handler, TokenGenerator } from "./Model";
 
 export class LoginHandler implements Handler{
 
     private req: IncomingMessage;
     private res: ServerResponse;
+    private tokenGenerator: TokenGenerator;
 
-    public constructor(req:IncomingMessage, res:ServerResponse){
+    public constructor(req:IncomingMessage, res:ServerResponse, tokenGenerator: TokenGenerator){
         this.req = req;
         this.res = res;
+        this.tokenGenerator = tokenGenerator;
     
     }
 
     public async handlerRequest():Promise<void>{
         const body = await this.getRequestBody(); 
+        const sessionToken = await this.tokenGenerator.generateToken(body);
+        if (sessionToken){
+            this.res.write('valid credentials');
+        }else{
+            this.res.write('wrong credentials');
+        }
     }
 
     private async getRequestBody(): Promise<Account>{
@@ -35,6 +43,8 @@ export class LoginHandler implements Handler{
             })
         });
     }
+
+
 
 
 }

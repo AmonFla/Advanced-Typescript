@@ -7,3 +7,11 @@ export interface Account{
 export interface Handler{
     handlerRequest():void
 }
+
+export interface SessionToken{
+    token: string
+}
+
+export interface TokenGenerator{
+    generateToken(account: Account): Promise<SessionToken | undefined>
+}
