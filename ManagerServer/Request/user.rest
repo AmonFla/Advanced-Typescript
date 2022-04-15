@@ -1,5 +1,5 @@
-GET http://localhost:8080/users  
+GET http://localhost:8080/users?id=12
 
 ###
 GET http://localhost:8080/users?id=12
-Authorization: 213124342 
+Authorization: 7b37xp9wx5i 
