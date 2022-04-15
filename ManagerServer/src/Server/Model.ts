@@ -1,3 +1,4 @@
+import { AccessRight } from "../Sahred/Model"
 
 export interface Account{
     username: string,
@@ -9,7 +10,11 @@ export interface Handler{
 }
 
 export interface SessionToken{
-    token: string
+    tokenId: string,
+    username: string,
+    valid: boolean,
+    expirationTime: Date,
+    accessRight: AccessRight[]
 }
 
 export interface TokenGenerator{
