@@ -1,15 +1,19 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { HTTP_CODES, HTTP_METHODS } from "../Sahred/Model";
+import { AccessRight, HTTP_CODES, HTTP_METHODS } from "../Sahred/Model";
 import { UserDBA } from "../User/UsersDBA";
 import { BaseRequestHandler } from "./BaseRequestHandler"; 
+import { TokenValidator } from "./Model";
 import { Utils } from "./Utils";
 
 export class UserHandler extends BaseRequestHandler{
 
     private userDBA: UserDBA = new UserDBA();
+    private tokenVal: TokenValidator ;
 
-    public constructor(req:IncomingMessage, res: ServerResponse){
+    public constructor(req:IncomingMessage, res: ServerResponse, tokenVal: TokenValidator){
         super(req,res)
+        this.tokenVal = tokenVal
+
     }
 
     public async handlerRequest(): Promise<void>{
@@ -38,7 +42,19 @@ export class UserHandler extends BaseRequestHandler{
                 this.responseBadRequest('userId not present in the request')
             }
         }
+    }
 
-        const a = '';
+    public async operationAuthorized(operation: AccessRight): Promise<boolean>{
+        const tokenId = this.req.headers.authorization;
+        if(tokenId){
+            const tokenRight = await this.tokenVal.validateToken(tokenId);
+            if(tokenRight.accessRight.includes(operation)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }

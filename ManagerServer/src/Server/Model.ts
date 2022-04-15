@@ -20,3 +20,19 @@ export interface SessionToken{
 export interface TokenGenerator{
     generateToken(account: Account): Promise<SessionToken | undefined>
 }
+
+export interface TokenValidator{
+    validateToken(tokenId: string): Promise<TokenRight> 
+}
+
+export interface TokenRight{
+    accessRight: AccessRight[],
+    state: TokenState
+
+}
+
+export enum TokenState{
+    VALID,
+    INVALID,
+    EXPIRED
+}
