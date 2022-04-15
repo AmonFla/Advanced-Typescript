@@ -1,0 +1,6 @@
+GET http://localhost:8080/users 
+Content-Type: application/json
+
+###
+GET http://localhost:8080/users?id=123 
+Content-Type: application/json
