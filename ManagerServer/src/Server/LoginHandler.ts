@@ -1,19 +1,16 @@
-import { on } from "events";
 import { IncomingMessage, ServerResponse } from "http";
 import { HTTP_CODES, HTTP_METHODS } from "../Sahred/Model";
-import { Account, Handler, TokenGenerator } from "./Model";
+import { BaseRequestHandler } from "./BaseRequestHandler";
+import { Account,  TokenGenerator } from "./Model";
 
-export class LoginHandler implements Handler{
+export class LoginHandler extends BaseRequestHandler{
 
-    private req: IncomingMessage;
-    private res: ServerResponse;
+    
     private tokenGenerator: TokenGenerator;
 
     public constructor(req:IncomingMessage, res:ServerResponse, tokenGenerator: TokenGenerator){
-        this.req = req;
-        this.res = res;
+        super(req,res)
         this.tokenGenerator = tokenGenerator;
-    
     }
 
     public async handlerRequest():Promise<void>{
@@ -28,13 +25,9 @@ export class LoginHandler implements Handler{
 
     }
 
-    private async handleNotFound() {
-        this.res.statusCode = HTTP_CODES.NOT_FOUND;
-        this.res.write('not found');        
-    }
     private async handlePost(){
         try{
-            const body = await this.getRequestBody(); 
+            const body: Account = await this.getRequestBody(); 
             const sessionToken = await this.tokenGenerator.generateToken(body);
             if (sessionToken){
                 this.res.statusCode = HTTP_CODES.CREATED;
@@ -49,24 +42,7 @@ export class LoginHandler implements Handler{
         }
     }
 
-    private async getRequestBody(): Promise<Account>{
-        return new Promise((resolve, reject)=>{
-            let body = '';
-            this.req.on('data', (data:string)=>{
-                body += data
-            }) 
-            this.req.on('end', ()=> {
-                try{
-                    resolve(JSON.parse(body));
-                }catch(error){
-                    reject(error);
-                }
-            });
-            this.req.on('error',(error:any)=>{
-                reject(error);
-            })
-        });
-    }
+   
 
 
 
