@@ -1,5 +1,6 @@
 import { on } from "events";
 import { IncomingMessage, ServerResponse } from "http";
+import { HTTP_CODES } from "../Sahred/Model";
 import { Account, Handler, TokenGenerator } from "./Model";
 
 export class LoginHandler implements Handler{
@@ -20,8 +21,11 @@ export class LoginHandler implements Handler{
             const body = await this.getRequestBody(); 
             const sessionToken = await this.tokenGenerator.generateToken(body);
             if (sessionToken){
-                this.res.write('valid credentials');
+                this.res.statusCode = HTTP_CODES.CREATED;
+                this.res.writeHead(HTTP_CODES.CREATED, {'Content-Type':'application/json'});
+                this.res.write(JSON.stringify(sessionToken));
             }else{
+                this.res.statusCode = HTTP_CODES.NOT_FOUND;
                 this.res.write('wrong credentials');
             }
         }catch(error: any ){
