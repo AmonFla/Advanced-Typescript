@@ -6,12 +6,12 @@ export class Server{
  
     public createServer(){
         createServer(
-            (req: IncomingMessage, res: ServerResponse) => {
+            async (req: IncomingMessage, res: ServerResponse) => {
                 console.log('got request from: ' + req.url);
                 const basePath = Utils.getUrlBasePath(req.url)
                 switch(basePath){
                     case 'login':
-                        new LoginHandler(req, res).handlerRequest()
+                        await new LoginHandler(req, res).handlerRequest()
                         break;
                     default:
                         break
