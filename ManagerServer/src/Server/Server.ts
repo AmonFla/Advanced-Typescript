@@ -12,6 +12,7 @@ export class Server{
             async (req: IncomingMessage, res: ServerResponse) => {
                 console.log('got request from: ' + req.url);
                 const basePath = Utils.getUrlBasePath(req.url,`http://${req.headers.host}`)
+                this.addCorsHeader(res);
                 switch(basePath){
                     case 'login':
                         await new LoginHandler(req, res, this.authorizer).handlerRequest()
@@ -26,6 +27,11 @@ export class Server{
             }
          ).listen(8080)
          console.log('server started')
+    }
+
+    private addCorsHeader(res:ServerResponse){
+        res.setHeader('Access-Control-Allow-Origin','*');
+        res.setHeader('Access-Control-Allow-Headers','*');
     }
 }
 
