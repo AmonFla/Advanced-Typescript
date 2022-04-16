@@ -1,28 +1,23 @@
-export class LoginController{
-    public createView():HTMLDivElement{
-        const container = document.createElement("div");
+import { BaseController } from "./BaseController";
 
-        const title = document.createElement('h2')
-        title.innerText = "Login Page!"
+export class LoginController extends BaseController{
+    public createView():HTMLDivElement{ 
 
-        const labelUsername = document.createElement("label");
-        labelUsername.innerText = "Username"
+        const title = this.createElement('h2',"Login Page!")
 
-        const inputUsername = document.createElement("input");
+        const labelUsername = this.createElement("label","Username");
+        const inputUsername = this.createElement("input");
 
-        const labelPassword = document.createElement("label");
-        labelPassword.innerText = "Password"
-
-        const inputPassword = document.createElement("input");
+        const labelPassword = this.createElement("label", "Password");
+        const inputPassword = this.createElement("input");
         inputPassword.type = 'Password';
 
-        const button = document.createElement("button");
-        button.innerText = "login";
+        const button = this.createElement("button","login");
         
-        const breakElement1 = document.createElement("br");
-        const breakElement2 = document.createElement("br");
+        const breakElement1 = this.createElement("br");
+        const breakElement2 = this.createElement("br");
 
-        container.append(
+        this.container.append(
             title,
             labelUsername,
             inputUsername,
@@ -32,6 +27,6 @@ export class LoginController{
             breakElement2,
             button)
 
-        return container;
+        return this.container;
     }
 }
