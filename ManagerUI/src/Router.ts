@@ -4,27 +4,32 @@ import { MainController } from "./controllers/MainController";
 export class Router{
 
     private mainElement = document.getElementById("main-container");
+    
+    private getRoute():string{
+        return window.location.pathname;
+    }
 
     public handleRequest(){
         console.log("handling request for"+this.getRoute())
 
         switch (this.getRoute()) {
             case '/login':
-                if(this.mainElement){
-                    const loginController:LoginController = new LoginController();
-                    this.mainElement.append(loginController.createView());
-                }
+                this.switchToLoginView();
                 break
             default:
                 if(this.mainElement){
-                    const mainController:MainController = new MainController();
+                    const mainController:MainController = new MainController(this);
                     this.mainElement.append(mainController.createView());
                 }
                 break;
         }
     }
 
-    private getRoute():string{
-        return window.location.pathname;
+    public switchToLoginView(){
+        if(this.mainElement){
+            this.mainElement.innerHTML = '';
+            const loginController:LoginController = new LoginController(this);
+            this.mainElement.append(loginController.createView());
+        }
     }
 }
