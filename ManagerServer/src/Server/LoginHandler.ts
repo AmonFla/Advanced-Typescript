@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { HTTP_CODES, HTTP_METHODS } from "../Sahred/Model";
+import { HTTP_CODES, HTTP_METHODS } from "../Shared/Model";
 import { BaseRequestHandler } from "./BaseRequestHandler";
 import { Account,  TokenGenerator } from "./Model";
 

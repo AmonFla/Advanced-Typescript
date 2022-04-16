@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { HTTP_CODES } from "../Sahred/Model";
+import { HTTP_CODES } from "../Shared/Model";
 
 export abstract class BaseRequestHandler{
     

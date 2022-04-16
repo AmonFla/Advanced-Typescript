@@ -1,4 +1,4 @@
-import { AccessRight } from "../Sahred/Model"
+import { AccessRight } from "../Shared/Model"
 
 export interface Account{
     username: string,

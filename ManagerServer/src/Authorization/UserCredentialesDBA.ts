@@ -1,4 +1,4 @@
-import { UserCredentials } from "../Sahred/Model";
+import { UserCredentials } from "../Shared/Model";
 import * as Nedb from 'nedb';
 export class UserCredentialsDBA{
 

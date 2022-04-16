@@ -1,6 +1,6 @@
 import { rejects } from 'assert';
 import * as Nedb from 'nedb'; 
-import { User } from '../Sahred/Model';
+import { User } from '../Shared/Model';
 
 
 export class UserDBA{

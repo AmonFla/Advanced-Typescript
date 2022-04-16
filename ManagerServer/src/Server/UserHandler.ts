@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { AccessRight, HTTP_CODES, HTTP_METHODS, User } from "../Sahred/Model";
+import { AccessRight, HTTP_CODES, HTTP_METHODS, User } from "../Shared/Model";
 import { UserDBA } from "../User/UsersDBA";
 import { BaseRequestHandler } from "./BaseRequestHandler"; 
 import { TokenValidator } from "./Model";

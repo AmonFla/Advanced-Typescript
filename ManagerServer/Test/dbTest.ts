@@ -1,5 +1,5 @@
 import { UserCredentialsDBA } from "../src/Authorization/UserCredentialesDBA";
-import { WorkingPosition } from "../src/Sahred/Model";
+import { WorkingPosition } from "../src/Shared/Model";
 import { UserDBA } from "../src/User/UsersDBA";
 
 class DbTest{
