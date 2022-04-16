@@ -34,15 +34,17 @@ export class UserHandler extends BaseRequestHandler{
         const operationAuthorized = await this.operationAuthorized(AccessRight.READ);
         if(operationAuthorized){
             const parseUrl = Utils.getUrlParameters(this.req.url);
-            if(parseUrl){
-                const userId = parseUrl?.query.id;
-                if(userId){
-                    const user = await this.userDBA.getUserById(userId as string);
+            if(parseUrl){ 
+                if(parseUrl?.query.id){
+                    const user = await this.userDBA.getUserById(parseUrl?.query.id as string);
                     if(user){
                         this.responseJsonObject(HTTP_CODES.OK,user);
                     }else{
                         this.handleNotFound()
                     }
+                }else if(parseUrl?.query.name){
+                    const users = await this.userDBA.getUserByName(parseUrl?.query.name as string);
+                    this.responseJsonObject(HTTP_CODES.OK,users);
                 }else{
                     this.responseBadRequest('userId not present in the request')
                 }

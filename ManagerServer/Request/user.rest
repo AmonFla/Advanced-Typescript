@@ -2,16 +2,20 @@ GET http://localhost:8080/users
 
 ###
 GET http://localhost:8080/users?id=12
-Authorization: m8dbcd39d1e
+Authorization: huumg1q7btm
 
 ###
 PUT http://localhost:8080/users
-Authorization: usqd8ka74ym
+Authorization: huumg1q7btm
 Content-Type: application/json
 
 {
-    "age":45,
+    "age":33,
     "email":"some@mail.com",
     "name":"some",
     "workingPosition": 3
 }
+
+###
+GET http://localhost:8080/users?name=some
+Authorization: huumg1q7btm
