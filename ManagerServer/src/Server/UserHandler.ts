@@ -36,17 +36,17 @@ export class UserHandler extends BaseRequestHandler{
     private async handlerGet(){
         const operationAuthorized = await this.operationAuthorized(AccessRight.READ);
         if(operationAuthorized){
-            const parseUrl = Utils.getUrlParameters(this.req.url);
+            const parseUrl = Utils.getUrlParameters(this.req.url, `http://${this.req.headers.host}`);
             if(parseUrl){ 
-                if(parseUrl?.query.id){
-                    const user = await this.userDBA.getUserById(parseUrl?.query.id as string);
+                if(parseUrl.searchParams.get('id')){
+                    const user = await this.userDBA.getUserById(parseUrl.searchParams.get('id') as string);
                     if(user){
                         this.responseJsonObject(HTTP_CODES.OK,user);
                     }else{
                         this.handleNotFound()
                     }
-                }else if(parseUrl?.query.name){
-                    const users = await this.userDBA.getUserByName(parseUrl?.query.name as string);
+                }else if(parseUrl.searchParams.get('name')){
+                    const users = await this.userDBA.getUserByName(parseUrl.searchParams.get('name') as string);
                     this.responseJsonObject(HTTP_CODES.OK,users);
                 }else{
                     this.responseBadRequest('userId not present in the request')
@@ -89,14 +89,14 @@ export class UserHandler extends BaseRequestHandler{
     private async handlerDelete(){
         const operationAuthorized = await this.operationAuthorized(AccessRight.DELETE);
         if(operationAuthorized){
-            const parseUrl = Utils.getUrlParameters(this.req.url);
+            const parseUrl = Utils.getUrlParameters(this.req.url,`http://${this.req.headers.host}`);
             if(parseUrl){ 
-                if(parseUrl?.query.id){
-                    const deleteResult = await this.userDBA.deleteUser(parseUrl?.query.id as string);
+                if(parseUrl.searchParams.get('id')){
+                    const deleteResult = await this.userDBA.deleteUser(parseUrl.searchParams.get('id')as string);
                     if(deleteResult){
-                        this.responseText(HTTP_CODES.OK,`user ${parseUrl?.query.id} deleted`);
+                        this.responseText(HTTP_CODES.OK,`user ${parseUrl.searchParams.get('id')} deleted`);
                     }else{
-                        this.handleNotFound(`user ${parseUrl?.query.id} was not deleted`)
+                        this.handleNotFound(`user ${parseUrl.searchParams.get('id')} was not deleted`)
                     }               
                 }else{
                     this.responseBadRequest('userId not present in the request')
