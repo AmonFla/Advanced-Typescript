@@ -1,3 +1,4 @@
+import { LoginController } from "./controllers/LoginController";
 import { MainController } from "./controllers/MainController";
 
 export class Router{
@@ -7,7 +8,13 @@ export class Router{
     public handleRequest(){
         console.log("handling request for"+this.getRoute())
 
-        switch (this.getRoute) {
+        switch (this.getRoute()) {
+            case '/login':
+                if(this.mainElement){
+                    const loginController:LoginController = new LoginController();
+                    this.mainElement.append(loginController.createView());
+                }
+                break
             default:
                 if(this.mainElement){
                     const mainController:MainController = new MainController();
