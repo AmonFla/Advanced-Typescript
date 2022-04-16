@@ -44,13 +44,17 @@ export abstract class BaseRequestHandler{
     }
 
     protected responseBadRequest(message: string){
-        this.res.statusCode = HTTP_CODES.BAD_REQUEST,
-        this.res.write(message)
+        this.responseText(HTTP_CODES.BAD_REQUEST,message)
     }
 
     protected responseUnauthorized(message: string){
-        this.res.statusCode = HTTP_CODES.UNAUTHORIZED,
+        this.responseText(HTTP_CODES.UNAUTHORIZED,message)
+    }
+
+    protected responseText(code:HTTP_CODES,message: string){
+        this.res.statusCode = code,
         this.res.write(message)
     }
+
 
 }

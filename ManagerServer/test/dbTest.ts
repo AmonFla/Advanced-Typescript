@@ -7,16 +7,16 @@ class DbTest{
     public dbUser: UserDBA = new UserDBA();
 }
 
-/*new DbTest().dbAccess.putUserCredential({
+new DbTest().dbAccess.putUserCredential({
     username: "flavio",
     password: "123456",
-    accessRight: [1,2,3]
-})*/
+    accessRight: [0,1,2,3]
+})
 
-new DbTest().dbUser.putUser({
+/*new DbTest().dbUser.putUser({
     age: 12,
     email: 'algo@algo.com',
     id: '', 
     name: 'alguien',
     workerPosition: WorkingPosition.JUNIOR
-})
+})*/

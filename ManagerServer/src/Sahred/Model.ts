@@ -21,7 +21,8 @@ export enum HTTP_CODES{
 export enum HTTP_METHODS{
     GET = 'GET',
     POST = 'POST',
-    DELETE = 'DELETE'
+    DELETE = 'DELETE',
+    PUT = 'PUT'
 }
 
 export interface User{

@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { AccessRight, HTTP_CODES, HTTP_METHODS } from "../Sahred/Model";
+import { AccessRight, HTTP_CODES, HTTP_METHODS, User } from "../Sahred/Model";
 import { UserDBA } from "../User/UsersDBA";
 import { BaseRequestHandler } from "./BaseRequestHandler"; 
 import { TokenValidator } from "./Model";
@@ -20,6 +20,9 @@ export class UserHandler extends BaseRequestHandler{
         switch(this.req.method){
             case HTTP_METHODS.GET:
                 await this.handlerGet();
+                break;
+            case HTTP_METHODS.PUT:
+                await this.handlerPut();
                 break;
             default:
                 this.handleNotFound();
@@ -46,6 +49,21 @@ export class UserHandler extends BaseRequestHandler{
             }
         }else{
             this.responseUnauthorized('missing or invalid authentication')
+        }
+    }
+
+    private async handlerPut(){
+        const operationAuthorized = await this.operationAuthorized(AccessRight.CREATE);
+        if(operationAuthorized){
+            try{
+                const user: User = await this.getRequestBody();
+                await this.userDBA.putUser(user);
+                this.responseText(HTTP_CODES.CREATED, `user ${user.name} created`);
+            }catch(error: any){
+                this.responseBadRequest(error.message)
+            }
+        }else{
+            this.responseUnauthorized('missing or invalid authentication');
         }
     }
 
