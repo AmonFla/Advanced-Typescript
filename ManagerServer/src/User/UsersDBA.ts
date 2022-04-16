@@ -8,7 +8,7 @@ export class UserDBA{
     private nedb: Nedb;
 
     public constructor(){
-        this.nedb = new Nedb('database/Users.db');
+        this.nedb = new Nedb('Database/Users.db');
         this.nedb.loadDatabase();
     }
 

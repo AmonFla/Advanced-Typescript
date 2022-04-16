@@ -5,7 +5,7 @@ export class UserCredentialsDBA{
     private nedb: Nedb;
 
     public constructor(){
-        this.nedb = new Nedb('database/UserCredentials.db');
+        this.nedb = new Nedb('Database/UserCredentials.db');
         this.nedb.loadDatabase();
     }
 

@@ -6,7 +6,7 @@ export class SessionTokenDBA{
     private nedb: Nedb;
 
     public constructor(){
-        this.nedb = new Nedb('database/SessionToken.db');
+        this.nedb = new Nedb('Database/SessionToken.db');
         this.nedb.loadDatabase();
     }
 
