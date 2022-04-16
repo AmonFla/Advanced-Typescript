@@ -56,6 +56,30 @@ export class UserDBA{
         });
     }
 
+    public async deleteUser(userId:string): Promise<boolean>{
+        const operationSuccess = await this.deleteUserFromDd(userId);
+        if (operationSuccess){
+            this.nedb.loadDatabase();
+        }
+        return operationSuccess;
+    } 
+    
+    private async deleteUserFromDd(userId:string): Promise<boolean>{
+        return new Promise((resolve, reject)=>{
+            this.nedb.remove({id: userId}, (err: Error|null, numRemove: number)=>{
+                if(err){
+                    reject(err)
+                }else{
+                    if(numRemove == 0){
+                        resolve(false)
+                    }else{
+                        resolve(true)
+                    }
+                }
+            })
+        });
+    }
+
     private generateUserId(){
         return Math.random().toString(36).slice(2);
     }
