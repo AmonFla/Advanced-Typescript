@@ -9,12 +9,12 @@ export class LoginService{
         let options = {
             method: 'POST',
             headers:{
-               'Content-Yype': 'application/json'
+               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                username,
                password
-            });
+            })
         }
 
         const result = await fetch(loginUrl, options);
