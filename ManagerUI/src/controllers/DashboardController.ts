@@ -1,11 +1,13 @@
 import { AccessRight, SessionToken } from "../models/AuthenticationModel";
+import { DataService } from "../services/DataService";
 import { BaseController } from "./BaseController";
 
 export class DashboardController extends BaseController{
 
     private sessionToken:SessionToken | undefined;
     private searchArea:HTMLInputElement | undefined;
-    private sarchResultArea:HTMLDivElement | undefined;
+    private searchResultArea:HTMLDivElement | undefined;
+    private dataService:DataService = new DataService();
 
     public setSessionToken(sessionToken: SessionToken){
         this.sessionToken = sessionToken;
@@ -38,14 +40,24 @@ export class DashboardController extends BaseController{
             this,this.insertBreak();
             this.createElement("label", "Search");
             this.searchArea = this.createElement("input")
-            this.sarchResultArea = this.createElement("div")
+            this.searchResultArea = this.createElement("div")
         }
     }
 
     private async triggerAction(access: AccessRight){
         switch (access) {
             case AccessRight.READ:
-                this.sarchResultArea?.innerText =  this.searchArea?.innerText
+                const users = await this.dataService.getUsers(
+                    this.sessionToken!.tokenId,
+                    this.searchArea!.value)
+                for(const user of users){
+                    this.searchResultArea!.append(
+                        this.createElement("label", JSON.stringify(user))
+                    )
+                    this.searchResultArea!.append(
+                        document.createElement("br")
+                    )
+                }
                 break;
         
             default:

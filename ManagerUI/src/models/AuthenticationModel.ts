@@ -12,3 +12,4 @@ export interface SessionToken{
     expirationTime: Date,
     accessRight: AccessRight[]
 }
+
