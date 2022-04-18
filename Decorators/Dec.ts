@@ -7,7 +7,7 @@ const someObject = {
 
 class Manager{
 
-   // @watchChange
+    //@watchChange
     @linkValue(someObject)
     someProperty: string
 }
