@@ -7,7 +7,7 @@ Authorization: 3idrnaib2ia
 
 ###
 PUT http://localhost:8080/users
-Authorization: huumg1q7btm
+Authorization: labt92nnngl
 Content-Type: application/json
 
 {
@@ -19,8 +19,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/users?name=me
-Authorization: hollrcgvmn
+Authorization: ggwnffo7n6b
 
 ###
 DELETE http://localhost:8080/users?id=123
-Authorization: hollrcgvmn
+Authorization: ggwnffo7n6b

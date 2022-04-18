@@ -1,5 +1,6 @@
 import { createServer, IncomingMessage, ServerResponse} from 'http';
 import { Authorizer } from '../Authorization/Authorizer';
+import { Monitor } from '../Shared/ObjectCounter';
 import { LoginHandler } from './LoginHandler'; 
 import { UserHandler } from './UserHandler';
 import { Utils } from './Utils';
@@ -14,6 +15,9 @@ export class Server{
                 const basePath = Utils.getUrlBasePath(req.url,`http://${req.headers.host}`)
                 this.addCorsHeader(res);
                 switch(basePath){
+                    case 'systeminfo':
+                        res.write(Monitor.printInstances())
+                        break;
                     case 'login':
                         await new LoginHandler(req, res, this.authorizer).handlerRequest()
                         break;
