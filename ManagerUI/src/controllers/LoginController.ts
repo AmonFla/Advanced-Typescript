@@ -1,5 +1,6 @@
 import { LoginService } from "../services/LoginService";
 import { BaseController } from "./BaseController";
+import { LinkTextValue } from "./Decorators";
 
 export class LoginController extends BaseController{
 
@@ -14,7 +15,7 @@ export class LoginController extends BaseController{
     private br2 = this.createElement("br")
     private loginButton = this.createElement("button","login", async ()=>{
         if(this.inputUsername.value && this.inputPassword.value){
-            this.resetErrorLabel()
+            this.errorLabelText = ''
             const result = await this.loginService.login(
                 this.inputUsername.value, 
                 this.inputPassword.value
@@ -22,28 +23,22 @@ export class LoginController extends BaseController{
             if(result){
                 this.router.switchToDashboardView(result);
             }else{
-                this.shoeErrorLabel("Wrong credentials")
+                this.errorLabelText = "Wrong credentials"
             }
         }else{
-            this.shoeErrorLabel("Please fill both fields!");
+            this.errorLabelText = "Please fill both fields!";
         }
     });
     private br3 = this.createElement("br")
     private labelError = this.createElement("label");
-
-    private resetErrorLabel(){
-        this.labelError.style.color = 'red';
-        this.labelError.style.visibility = 'hidden'; 
-    }
-
-    private shoeErrorLabel(message: string){
-        this.labelError.innerText = message;
-        this.labelError.style.visibility = 'visible';
-    }
+    
+    @LinkTextValue('errorLabel')
+    private errorLabelText: string = '';
 
     public createView():HTMLDivElement{ 
 
-        this.resetErrorLabel();
+        this.labelError.id = 'errorLabel';
+        this.labelError.style.color = 'red';
         this.inputPassword.type = 'Password';
 
         return this.container;
