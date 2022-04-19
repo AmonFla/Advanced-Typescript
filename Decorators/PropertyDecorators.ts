@@ -9,7 +9,7 @@ class Manager{
 
     //@watchChange
     @linkValue(someObject)
-    someProperty: string
+    someProperty: string | undefined
 }
 
 // watchChange(Manager.prototype, 'someProperty')

@@ -1,4 +1,5 @@
 import { TokenGenerator, Account, SessionToken, TokenValidator, TokenRight, TokenState } from "../Server/Model";
+import { logInvocation } from "../Shared/MethodDecorators";
 import { countInstances } from "../Shared/ObjectCounter";
 import { SessionTokenDBA } from "./SessionTolenDBA";
 import { UserCredentialsDBA } from "./UserCredentialesDBA";
@@ -9,6 +10,7 @@ export class Authorizer implements TokenGenerator, TokenValidator{
     private userCredDBA: UserCredentialsDBA = new UserCredentialsDBA();
     private sessionTokenDBA: SessionTokenDBA = new SessionTokenDBA();
 
+    @logInvocation
     public async generateToken(account: Account): Promise<SessionToken | undefined> {
         const resultAccount = await this.userCredDBA.getUserCredential(account.username, account.password);
 

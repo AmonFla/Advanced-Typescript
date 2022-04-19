@@ -29,7 +29,7 @@ class Counter{
 }*/
 
 /**
- * Para que afecte a la instancia debe retornarse un contructor
+ * Para que afecte a la instancia debe retornarse una clase extendida
  */
 
  export function countInstances<T extends {new(...args:any[]):{}}>(constructor: T){
