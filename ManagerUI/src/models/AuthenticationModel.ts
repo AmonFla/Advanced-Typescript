@@ -1,15 +1,15 @@
-export enum AccessRight{
-    CREATE,
-    READ,
-    UPDATE,
-    DELETE
+export enum AccessRight {
+  CREATE,
+  READ,
+  UPDATE,
+  DELETE,
 }
 
-export interface SessionToken{
-    tokenId: string,
-    username: string,
-    valid: boolean,
-    expirationTime: Date,
-    accessRight: AccessRight[]
+export interface SessionToken {
+  tokenId: string,
+  username: string,
+  valid: boolean,
+  expirationTime: Date,
+  accessRight: AccessRight[]
 }
 

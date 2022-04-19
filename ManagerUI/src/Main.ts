@@ -1,16 +1,16 @@
-import { Router } from "./Router";
+import { Router } from './Router';
 
-export class Main{
+export class Main {
 
-    private router:Router = new Router();
+  private router:Router = new Router();
 
-    public constructor(){
-        console.log('Constructor new Instance of the program');
-    }
+  public constructor() {
+    console.log('Constructor new Instance of the program');
+  }
 
-    public launchApp(){
-        this.router.handleRequest();
-    }   
+  public launchApp() {
+    this.router.handleRequest();
+  }   
 }
 
 new Main().launchApp();
