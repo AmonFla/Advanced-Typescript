@@ -12,10 +12,18 @@ export class UserHandler extends BaseRequestHandler{
     private userDBA: UserDBA = new UserDBA();
     private tokenVal: TokenValidator ;
 
-    public constructor(req:IncomingMessage, res: ServerResponse, tokenVal: TokenValidator){
-        super(req,res)
+    public constructor(tokenVal: TokenValidator, req?:IncomingMessage, res?: ServerResponse ){
+            super({} as any,{} as any)
         this.tokenVal = tokenVal
 
+    }
+
+    public setRequest(req:IncomingMessage){
+        this.req = req
+    }
+
+    public setResponse(res:ServerResponse){
+        this.res = res;
     }
 
     public async handlerRequest(): Promise<void>{

@@ -7,6 +7,8 @@ import { Utils } from './Utils';
 
 export class Server{
     private authorizer : Authorizer = new Authorizer();
+    private loginHandle: LoginHandler = new LoginHandler(this.authorizer); 
+    private userHandle: UserHandler = new UserHandler(this.authorizer); 
  
     public createServer(){
         createServer(
@@ -19,10 +21,14 @@ export class Server{
                         res.write(Monitor.printInstances())
                         break;
                     case 'login':
-                        await new LoginHandler(req, res, this.authorizer).handlerRequest()
+                        this.loginHandle.setRequest(req);
+                        this.loginHandle.setResponse(res)
+                        await this.loginHandle.handlerRequest()
                         break;
                     case 'users':
-                        await new UserHandler(req,res,this.authorizer).handlerRequest();
+                        this.userHandle.setRequest(req);
+                        this.userHandle.setResponse(res)
+                        await this.userHandle.handlerRequest()
                         break;
                     default:
                         break

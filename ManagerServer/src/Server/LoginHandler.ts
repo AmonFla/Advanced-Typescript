@@ -10,9 +10,17 @@ export class LoginHandler extends BaseRequestHandler{
     
     private tokenGenerator: TokenGenerator;
 
-    public constructor(req:IncomingMessage, res:ServerResponse, tokenGenerator: TokenGenerator){
-        super(req,res)
+    public constructor(tokenGenerator: TokenGenerator, req?:IncomingMessage, res?:ServerResponse){
+        super({} as any,{} as any)
         this.tokenGenerator = tokenGenerator;
+    }
+
+    public setRequest(req:IncomingMessage){
+        this.req = req
+    }
+
+    public setResponse(res:ServerResponse){
+        this.res = res;
     }
 
     public async handlerRequest():Promise<void>{
